@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Observable, of } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -9,12 +12,23 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomeComponent implements OnInit {
 
-  products: Product[] = [];
+  @ViewChild(MatPaginator) paginator: MatPaginator = {} as MatPaginator;
 
-  constructor(private prdService: ProductService) { }
+  ds: MatTableDataSource<Product> = new MatTableDataSource<Product>();
+  productsObservable: Observable<Product[]> = of();
 
-  ngOnInit(): void {
-    this.prdService.listProducts().subscribe(products => this.products.push(...products));
+  private products: Product[] = [];
+
+  constructor(private changeDetectorRef : ChangeDetectorRef, 
+    private productService : ProductService) {
   }
 
+  ngOnInit(): void {
+    this.productService.listProducts().subscribe(products => {
+      this.products.push(...products);
+      this.ds = new MatTableDataSource<Product>(this.products);
+      this.ds.paginator = this.paginator;
+      this.productsObservable = this.ds.connect();
+    });
+  }
 }

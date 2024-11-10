@@ -1,5 +1,5 @@
 <mat-grid-list cols="5">
-    <mat-grid-tile *ngFor="let product of products">
+    <mat-grid-tile *ngFor="let product of productsObservable | async">
         <mat-card>
             <mat-card-title-group>
                 <mat-card-title>&dollar;{{product.price}}</mat-card-title>
@@ -15,8 +15,4 @@
     </mat-grid-tile>
 </mat-grid-list>
 
-<div class="container">
-    
-</div>
-
-<!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" color="accent"></mat-paginator> -->
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
