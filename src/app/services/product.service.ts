@@ -12,7 +12,7 @@ export class ProductService {
   private products: Product[] = [];
 
   constructor(private httpClient: HttpClient) { 
-    this.products.push(new Product());
+    
   }
 
   listProducts() : Observable<Product[]> {
