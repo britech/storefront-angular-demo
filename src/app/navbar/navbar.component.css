@@ -3,8 +3,9 @@
     flex-wrap: wrap;
     align-items: center;
     padding: 8px 16px;
+    background-color: #673ab7;
 }
 
 .link {
-    color: white;
+    color: white
 }
