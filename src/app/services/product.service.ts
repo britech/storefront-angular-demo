@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Product } from '../models/product';
 import { environment } from 'src/environments/environment';
 
@@ -9,9 +9,14 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductService {
 
-  constructor(private httpClient: HttpClient) { }
+  private products: Observable<Product[]> = of();
+
+  constructor(private httpClient: HttpClient) { 
+    this.products = httpClient.get<Product[]>(environment.endpoints.listProducts);
+
+  }
 
   listProducts() : Observable<Product[]> {
-    return this.httpClient.get<Product[]>(environment.endpoints.listProducts);
+    return this.products;
   }
 }
