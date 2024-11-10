@@ -1,0 +1,12 @@
+.mat-card {
+    width: calc(100% - 50px);
+    height: calc(100% - 80px);
+}
+
+.mat-card-title-group {
+    height: calc(100% - 80px);
+}
+
+.mat-card-subtitle {
+    font-size: calc(.50vw + .75vh);
+}
