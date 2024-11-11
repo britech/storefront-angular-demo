@@ -2,11 +2,12 @@
     <h1 class="cart-header" *ngIf="cart.getItemCount() <= 1">Cart <span class="cart-header-count">({{cart.getItemCount()}} item)</span></h1>
     <h1 class="cart-header" *ngIf="cart.getItemCount() > 1">Cart <span class="cart-header-count">({{cart.getItemCount()}} items)</span></h1>
 
-    <div *ngIf="cart.getItemCount() <= 0">No items in your cart yet.</div>
+    
 
     <div class="cart-container">
         <div class="cart-content">
-            <table mat-table [dataSource]="cart.items">
+            <div *ngIf="cart.getItemCount() <= 0">No items in your cart yet.</div>
+            <table mat-table [dataSource]="cart.items" *ngIf="cart.getItemCount() > 0">
                 <ng-container matColumnDef="image">
                     <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
                     <td mat-cell *matCellDef="let element"><img src="{{element.product.image}}" alt="product"/></td>
