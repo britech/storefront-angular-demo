@@ -12,11 +12,12 @@ export class GuardService implements CanActivate {
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (!this.authService.isAuthenticated()) {
+      if (!this.authService.isAdministrator()) {
         return this.router.navigate(['/login'], {
           queryParams: {
             redirect: state.url
-          }
+          },
+          
         });
       }
       return true;

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { User } from '../models/user';
+import rows from '../models/users.json';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ export class AuthService {
   private loginSubject: Subject<boolean> = new Subject<boolean>();
   login$ : Observable<boolean> = this.loginSubject.asObservable();
   private isLoggedIn: boolean = false;
+  private users: User[] = rows;
 
   constructor() { }
 
@@ -18,10 +20,17 @@ export class AuthService {
   }
 
   authenticate(user: User) : boolean {
-    let result : boolean = user.username == 'admin' && user.password == 'nimda';
-    sessionStorage.setItem('currentUser', btoa(user.username));
-    this.loginSubject.next(result);
-    return result;
+    console.log(this.users);
+    let resolvedUser: User = this.users.find(e => e.username == user.username && e.password == user.password) ?? new User();
+    resolvedUser.password = "";
+
+    let exists = resolvedUser.username != "";
+    
+    if (exists) {
+      sessionStorage.setItem('currentUser', JSON.stringify(resolvedUser));
+    }
+    this.loginSubject.next(exists);
+    return exists;
   }
 
   logout(): void {
@@ -31,10 +40,23 @@ export class AuthService {
 
   isAuthenticated() : boolean {
     try {
-      let user = sessionStorage.getItem('currentUser') ?? "";
-      return atob(user) == 'admin';
+      let user : User = this.getCurrentUser();
+      return user.username != "";
     } catch(err) {
       return false;
+    }
+  }
+
+  isAdministrator(): boolean {
+    return this.isAuthenticated() && this.getCurrentUser().role == "Administrator";
+  }
+
+  private getCurrentUser(): User {
+    try {
+      let user : User = Object.assign(new User(), JSON.parse(sessionStorage.getItem('currentUser') ?? "{}"));
+      return user;
+    } catch(err) {
+      return new User();
     }
   }
 }
