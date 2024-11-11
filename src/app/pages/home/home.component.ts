@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 import { CartService } from 'src/app/services/cart.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
   private products: Product[] = [];
 
   constructor(private productService : ProductService,
-    private cartService : CartService) {
+    private cartService : CartService,
+    private snackbar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -35,5 +37,8 @@ export class HomeComponent implements OnInit {
 
   addToCart(product: Product) : void {
     this.cartService.add(product);
+    this.snackbar.open(`${product.title} added to cart`, 'Dismiss', {
+      duration: 1000
+    })
   }
 }
