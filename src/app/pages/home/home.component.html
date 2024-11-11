@@ -4,7 +4,7 @@
             <mat-card-title-group>
                 <mat-card-title>&dollar;{{product.price}}</mat-card-title>
                 <mat-card-subtitle>{{product.title}}</mat-card-subtitle>
-                <img mat-card-md-image src="{{product.image}}" alt="{{product.title}}" matTooltip="{{product.title}}"/>
+                <img mat-card-md-image src="{{product.image}}" alt="product" matTooltip="{{product.title}}"/>
             </mat-card-title-group>
             <mat-card-actions>
                 <button mat-fab color="primary" matTooltip="Add to cart" (click)="addToCart(product)">
