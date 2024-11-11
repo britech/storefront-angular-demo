@@ -1,3 +1,38 @@
 <div class="container">
     <h1 class="header">Add Product</h1>
+    <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Product Name" [(ngModel)]="product.title" name="title" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Image</mat-label>
+            <input matInput placeholder="Image URL" [(ngModel)]="product.image" name="image" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Price</mat-label>
+            <span matPrefix>&dollar;&nbsp;</span>
+            <input matInput placeholder="Price" type="number" [(ngModel)]="product.price" name="price" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <input matInput placeholder="Category" [(ngModel)]="product.category" name="category" (ngModelChange)="updateCategories($event)" [matAutocomplete]="categoryInput">
+
+            <mat-autocomplete #categoryInput="matAutocomplete">
+                <mat-option *ngFor="let category of filteredCategories" [value]="category">
+                  {{category}}
+                </mat-option>
+              </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput name="description" [(ngModel)]="product.description" placeholder="Say something about this product" name="description"></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary">Submit</button>
+    </form>
 </div>

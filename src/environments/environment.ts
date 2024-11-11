@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   endpoints: {
-    listProducts: 'https://fakestoreapi.com/products'
+    listProducts: 'https://fakestoreapi.com/products',
+    listCategories: 'https://fakestoreapi.com/products/categories'
   }
 };
 
