@@ -19,6 +19,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CartComponent } from './pages/cart/cart.component';
 import { ManageProductsComponent } from './pages/manage-products/manage-products.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HomeComponent,
     NavbarComponent,
     CartComponent,
-    ManageProductsComponent
+    ManageProductsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

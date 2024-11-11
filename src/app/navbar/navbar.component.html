@@ -3,7 +3,5 @@
     <a mat-button class="link" *ngIf="cartCount == 0" routerLink="cart">Cart</a>
     <a mat-button class="link" *ngIf="cartCount > 0" [matBadge]="cartCount" matBadgeColor="accent" routerLink="cart">Cart</a>
     <a mat-button class="link" routerLink="manageProducts">Manage Products</a>
-    <a mat-button class="link">Dashboard</a>
-    <a mat-button class="link">Login</a>
-    <a mat-button class="link">Logout</a>
+    <a mat-button class="link" routerLink="dashboard">Dashboard</a>
 </nav>
