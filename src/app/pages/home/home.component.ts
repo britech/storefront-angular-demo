@@ -1,9 +1,10 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, of } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,8 @@ export class HomeComponent implements OnInit {
 
   private products: Product[] = [];
 
-  constructor(private changeDetectorRef : ChangeDetectorRef, 
-    private productService : ProductService) {
+  constructor(private productService : ProductService,
+    private cartService : CartService) {
   }
 
   ngOnInit(): void {
@@ -30,5 +31,9 @@ export class HomeComponent implements OnInit {
       this.ds.paginator = this.paginator;
       this.productsObservable = this.ds.connect();
     });
+  }
+
+  addToCart(product: Product) : void {
+    this.cartService.add(product);
   }
 }

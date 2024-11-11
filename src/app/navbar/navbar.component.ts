@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
+import { Subscription } from 'rxjs';
+import { Product } from '../models/product';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  cartCount : number = 0;
+  constructor(private cartService : CartService) { 
+    
   }
 
+  ngOnInit(): void {
+    this.cartCount = this.cartService.count();
+    this.cartService.productAdded$.subscribe(() => this.cartCount = this.cartService.count());
+
+    this.cartService.view();
+  }
 }

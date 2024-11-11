@@ -10,3 +10,7 @@
 .mat-card-subtitle {
     font-size: calc(.50vw + .75vh);
 }
+
+td.mat-column-name h4 {
+    font-weight: bold;
+}

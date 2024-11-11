@@ -7,7 +7,7 @@
                 <img mat-card-md-image src="{{product.image}}" alt="{{product.title}}" matTooltip="{{product.title}}"/>
             </mat-card-title-group>
             <mat-card-actions>
-                <button mat-fab color="primary" matTooltip="Add to cart">
+                <button mat-fab color="primary" matTooltip="Add to cart" (click)="addToCart(product)">
                     <mat-icon>add_shopping_cart</mat-icon>
                 </button>
             </mat-card-actions>

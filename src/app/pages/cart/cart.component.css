@@ -1,0 +1,42 @@
+.container {
+    width: calc(100% - 200px);
+    margin: 0 auto;
+}
+
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-content {
+    flex-grow: 2;
+}
+
+table {
+    width: 100%;
+}
+
+.cart-header {
+    margin-top: 80px
+}
+
+.cart-header-count {
+    font-weight: lighter;
+}
+
+.cart-subtotal, .cart-total {
+    display: flex;
+    justify-content: space-between;
+}
+
+.mat-column-image img {
+    width: calc(3vw + .75vh);
+}
+
+.item-name {
+    font-weight: bold;
+}
+
+.item-price {
+    color: rgba(0, 0, 0, .54);
+}
