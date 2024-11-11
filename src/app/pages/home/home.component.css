@@ -18,9 +18,19 @@ td.mat-column-name h4 {
 .container {
     width: calc(100% - 30px);
     margin: 0 auto;
+}
 
-    .mat-form-field {
-        margin-top: 30px;
-        display: block;
-    }
+.form-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.filter-container {
+    flex-grow: 1;
+}
+
+.filter-container .mat-form-field {
+    display: block;
 }

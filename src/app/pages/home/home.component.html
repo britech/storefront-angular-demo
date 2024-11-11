@@ -1,8 +1,29 @@
 <div class="container">
-    <mat-form-field>
-        <mat-label>Search by name or category</mat-label>
-        <input matInput [(ngModel)]="searchString" (ngModelChange)="applyFilter()"/>
-    </mat-form-field>
+    <div class="form-container">
+        <div class="filter-container">
+            <mat-form-field>
+                <mat-label>Search by name or category</mat-label>
+                <input matInput [(ngModel)]="searchString" (ngModelChange)="applyFilter()"/>
+                <button mat-icon-button type="button" matSuffix *ngIf="searchString != ''" (click)="resetFilter()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field>
+                <mat-label>Sort by</mat-label>
+                <mat-select [(ngModel)]="sortField" (ngModelChange)="applySort()">
+                    <mat-option value="1">Price, ascending</mat-option>
+                    <mat-option value="2">Price, descending</mat-option>
+                    <mat-option value="3">Name, ascending</mat-option>
+                    <mat-option value="4">Name, descending</mat-option>
+                </mat-select>
+                <button mat-icon-button type="button" matSuffix *ngIf="sortField != 0" (click)="resetSort()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
 </div>
 
 <mat-grid-list cols="5">

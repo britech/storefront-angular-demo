@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 import { CartService } from 'src/app/services/cart.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   ds: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   productsObservable: Observable<Product[]> = of();
-  searchString: string = ""
+  searchString: string = "";
+  sortField: number = 0;
 
   private products: Product[] = [];
 
@@ -35,6 +37,7 @@ export class HomeComponent implements OnInit {
         return (data.category?.toLowerCase()?.includes(filter) ?? false) || (data.title?.toLowerCase()?.includes(filter) ?? false)
       }
       this.ds.paginator = this.paginator;
+      this.ds.sort = new MatSort();
       this.productsObservable = this.ds.connect();
     });
   }
@@ -48,5 +51,51 @@ export class HomeComponent implements OnInit {
 
   applyFilter(): void {
     this.ds.filter = this.searchString.trim().toLowerCase();
+    this.applySort();
+  }
+
+  resetFilter() {
+    this.searchString = "";
+    this.applyFilter();
+  }
+
+  resetSort(): void {
+    this.sortField = 0;
+    this.applySort();
+  }
+
+  applySort(): void {
+    if (this.sortField == 1) {
+      this.ds.sort?.sort({
+        id: 'price',
+        start: 'asc',
+        disableClear: true
+      });
+    } else if (this.sortField == 2) {
+      this.ds.sort?.sort({
+        id: 'price',
+        start: 'desc',
+        disableClear: true
+      });
+    } else if (this.sortField == 3) {
+      this.ds.sort?.sort({
+        id: 'title',
+        start: 'asc',
+        disableClear: true
+      });
+    } else if (this.sortField == 4) {
+      this.ds.sort?.sort({
+        id: 'title',
+        start: 'desc',
+        disableClear: true
+      });
+    } else if (this.sortField == 0) {
+      this.ds.sort?.sort({
+        id: 'id',
+        start: 'asc',
+        disableClear: true
+      });
+    }
+      
   }
 }
