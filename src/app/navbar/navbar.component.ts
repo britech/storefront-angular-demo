@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
-import { Subscription } from 'rxjs';
-import { Product } from '../models/product';
+import { AuthService } from '../services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,7 +11,11 @@ import { Product } from '../models/product';
 export class NavbarComponent implements OnInit {
 
   cartCount : number = 0;
-  constructor(private cartService : CartService) { 
+  showLogout: boolean = false;
+
+  constructor(private cartService : CartService,
+    private authService : AuthService,
+    private router : Router) { 
     
   }
 
@@ -19,6 +23,12 @@ export class NavbarComponent implements OnInit {
     this.cartCount = this.cartService.count();
     this.cartService.productAdded$.subscribe(() => this.cartCount = this.cartService.count());
 
-    this.cartService.view();
+    this.showLogout = this.authService.isAuthenticated();
+    this.authService.login$.subscribe(enabled => this.showLogout = enabled);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigateByUrl('/home')
   }
 }

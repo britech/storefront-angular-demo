@@ -20,6 +20,10 @@ import { CartComponent } from './pages/cart/cart.component';
 import { ManageProductsComponent } from './pages/manage-products/manage-products.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { LoginComponent } from './pages/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     NavbarComponent,
     CartComponent,
     ManageProductsComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,10 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     MatTableModule,
     MatPaginatorModule,
     MatBadgeModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
