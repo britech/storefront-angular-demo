@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
 
   ds: MatTableDataSource<Product> = new MatTableDataSource<Product>();
   productsObservable: Observable<Product[]> = of();
+  searchString: string = ""
 
   private products: Product[] = [];
 
@@ -30,6 +31,9 @@ export class HomeComponent implements OnInit {
     this.productService.listProducts().subscribe(products => {
       this.products.push(...products);
       this.ds = new MatTableDataSource<Product>(this.products);
+      this.ds.filterPredicate = (data, filter) => {
+        return (data.category?.toLowerCase()?.includes(filter) ?? false) || (data.title?.toLowerCase()?.includes(filter) ?? false)
+      }
       this.ds.paginator = this.paginator;
       this.productsObservable = this.ds.connect();
     });
@@ -40,5 +44,9 @@ export class HomeComponent implements OnInit {
     this.snackbar.open(`${product.title} added to cart`, 'Dismiss', {
       duration: 1000
     })
+  }
+
+  applyFilter(): void {
+    this.ds.filter = this.searchString.trim().toLowerCase();
   }
 }

@@ -14,3 +14,13 @@
 td.mat-column-name h4 {
     font-weight: bold;
 }
+
+.container {
+    width: calc(100% - 30px);
+    margin: 0 auto;
+
+    .mat-form-field {
+        margin-top: 30px;
+        display: block;
+    }
+}
