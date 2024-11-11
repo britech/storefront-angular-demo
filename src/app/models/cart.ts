@@ -1,3 +1,4 @@
+import { Utils } from "../utils/utils";
 import { CartItem } from "./cart-item";
 
 export class Cart {
@@ -12,12 +13,12 @@ export class Cart {
     getSubtotal() {
         let total = 0;
         this.items.forEach(e => total += e.getTotalPrice());
-        return total;
+        return Utils.round(total);
     }
 
     getTotalPrice() {
         let total = 0;
         this.items.forEach(e => total += e.getTotalPrice());
-        return total;
+        return Utils.round(total);
     }
 }
