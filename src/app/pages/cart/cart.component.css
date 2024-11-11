@@ -33,10 +33,23 @@ table {
     width: calc(3vw + .75vh);
 }
 
+th.mat-column-name {
+    width: 500px;
+}
+
 .item-name {
     font-weight: bold;
+    text-wrap: wrap;
 }
 
 .item-price {
     color: rgba(0, 0, 0, .54);
+}
+
+th.mat-column-image {
+    width: 100px;
+}
+
+th.mat-column-quantity {
+    width: 100px;
 }

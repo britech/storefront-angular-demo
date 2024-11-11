@@ -9,8 +9,8 @@ import { CartItem } from '../models/cart-item';
 })
 export class CartService {
 
-  private productsSubject: Subject<Product> = new Subject<Product>();
-  productAdded$ : Observable<Product> = this.productsSubject.asObservable();
+  private cartCountSubject: Subject<number> = new Subject<number>();
+  cartCount$: Observable<number> = this.cartCountSubject.asObservable(); 
 
   constructor() { }
 
@@ -18,7 +18,7 @@ export class CartService {
     let products = this.getProducts();
     products.push(product);
     sessionStorage.setItem('cartItems', JSON.stringify(products));
-    this.productsSubject.next(product);
+    this.cartCountSubject.next(this.count());
   }
 
   count(): number {
@@ -37,6 +37,11 @@ export class CartService {
       return item;
     });
     return cart;
+  }
+
+  removeItem(id: string): void {
+    sessionStorage.setItem('cartItems', JSON.stringify(this.getProducts().filter(e => e.id != id)));
+    this.cartCountSubject.next(this.count());
   }
 
   private getProducts(): Product[] {
