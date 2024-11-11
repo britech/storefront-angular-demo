@@ -17,13 +17,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { CartComponent } from './pages/cart/cart.component';
+import { ManageProductsComponent } from './pages/manage-products/manage-products.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    CartComponent
+    CartComponent,
+    ManageProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { CartComponent } from './pages/cart/cart.component';
     MatTooltipModule,
     MatTableModule,
     MatPaginatorModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

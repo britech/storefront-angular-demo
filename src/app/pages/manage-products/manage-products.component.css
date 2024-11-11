@@ -1,0 +1,8 @@
+.container {
+    width: calc(100% - 200px);
+    margin: 0 auto;
+}
+
+.header {
+    margin-top: 80px
+}
