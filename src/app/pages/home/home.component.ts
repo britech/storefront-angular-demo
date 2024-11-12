@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, of } from 'rxjs';
@@ -26,18 +26,18 @@ export class HomeComponent implements OnInit {
 
   constructor(private productService : ProductService,
     private cartService : CartService,
-    private snackbar: MatSnackBar) {
+    private snackbar: MatSnackBar,
+    private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this.productService.listProducts().subscribe(products => {
       this.products.push(...products);
-      this.ds = new MatTableDataSource<Product>(this.products);
+      this.ds = new MatTableDataSource<Product>([...this.products]);
       this.ds.filterPredicate = (data, filter) => {
         return (data.category?.toLowerCase()?.includes(filter) ?? false) || (data.title?.toLowerCase()?.includes(filter) ?? false)
       }
       this.ds.paginator = this.paginator;
-      this.ds.sort = new MatSort();
       this.productsObservable = this.ds.connect();
     });
   }
@@ -51,7 +51,6 @@ export class HomeComponent implements OnInit {
 
   applyFilter(): void {
     this.ds.filter = this.searchString.trim().toLowerCase();
-    this.applySort();
   }
 
   resetFilter() {
@@ -66,36 +65,24 @@ export class HomeComponent implements OnInit {
 
   applySort(): void {
     if (this.sortField == 1) {
-      this.ds.sort?.sort({
-        id: 'price',
-        start: 'asc',
-        disableClear: true
+      this.ds.data.sort((a, b) => {
+        return (a.price ?? 0) - (b.price ?? 0);
       });
     } else if (this.sortField == 2) {
-      this.ds.sort?.sort({
-        id: 'price',
-        start: 'desc',
-        disableClear: true
+      this.ds.data.sort((a, b) => {
+        return (b.price ?? 0) - (a.price ?? 0);
       });
     } else if (this.sortField == 3) {
-      this.ds.sort?.sort({
-        id: 'title',
-        start: 'asc',
-        disableClear: true
+      this.ds.data.sort((a, b) => {
+        return a.title?.localeCompare(b?.title ?? "") ?? -1;
       });
     } else if (this.sortField == 4) {
-      this.ds.sort?.sort({
-        id: 'title',
-        start: 'desc',
-        disableClear: true
+      this.ds.data.sort((a, b) => {
+        return (b.title ?? "").localeCompare(a.title ?? "") ?? -1;
       });
-    } else if (this.sortField == 0) {
-      this.ds.sort?.sort({
-        id: 'id',
-        start: 'asc',
-        disableClear: true
-      });
+    } else {
+      this.ds.data = [...this.products];
     }
-      
+    this.ds._updateChangeSubscription();
   }
 }
