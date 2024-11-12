@@ -3,5 +3,10 @@
         "username": "admin",
         "password": "nimda",
         "role": "Administrator"
+    },
+    {
+        "username": "sample",
+        "password": "sample",
+        "role": "User"
     }
 ]

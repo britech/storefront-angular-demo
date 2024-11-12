@@ -22,12 +22,13 @@ export class AuthService {
   authenticate(user: User) : boolean {
     console.log(this.users);
     let resolvedUser: User = this.users.find(e => e.username == user.username && e.password == user.password) ?? new User();
-    resolvedUser.password = "";
-
     let exists = resolvedUser.username != "";
     
     if (exists) {
-      sessionStorage.setItem('currentUser', JSON.stringify(resolvedUser));
+      let currentUser = new User();
+      currentUser.username = resolvedUser.username;
+      currentUser.role = resolvedUser.role;
+      sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
     }
     this.loginSubject.next(exists);
     return exists;
