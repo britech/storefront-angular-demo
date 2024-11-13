@@ -1,0 +1,6 @@
+[build]
+    publish = "dist/storefront-v2"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
